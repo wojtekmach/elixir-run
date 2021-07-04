@@ -36,9 +36,20 @@ defmodule ElixirRun.MixProject do
       overwrite: true,
       cookie: "#{@app}_cookie",
       quiet: true,
-      steps: [:assemble, &Bakeware.assemble/1],
+      steps: [:assemble, &copy_include/1, &Bakeware.assemble/1],
       strip_beams: [keep: ["Docs"]],
       bakeware: [start_command: "start"]
     ]
+  end
+
+  defp copy_include(release) do
+    app = release.applications.parsetools
+
+    File.cp_r!(
+      Path.join([app[:path], "include"]),
+      Path.join([release.path, "lib", "parsetools-#{app[:vsn]}", "include"])
+    )
+
+    release
   end
 end
