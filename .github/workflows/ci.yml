@@ -1,0 +1,87 @@
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24
+          elixir-version: 1.12
+      - run: mix archive.install github hexpm/hex branch wm-mix --force
+      # - run: mix local.hex --force
+      - run: mix deps.get
+      - run: mix release
+
+      - run: |
+          git pull origin main
+          mv _build/dev/rel/bakeware/elixir_run bin/elixir-run-linux-x86_64
+        if: ${{ !env.ACT }}
+      - name: Update bin/
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update bin/elixir-run-linux-x86_64
+          file_pattern: bin/
+        if: ${{ !env.ACT }}
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: brew install elixir
+      - run: mix archive.install github hexpm/hex branch wm-mix --force
+      # - run: mix local.hex --force
+      - run: mix deps.get
+      - run: mix release
+
+      - run: |
+          git pull origin main
+          mv _build/dev/rel/bakeware/elixir_run bin/elixir-run-macos-x86_64
+        if: ${{ !env.ACT }}
+      - name: Update bin/
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update bin/elixir-run-macos-x86_64
+          file_pattern: bin/
+        if: ${{ !env.ACT }}
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@main
+        with:
+          otp-version: 24
+      - run: |
+          mkdir tmp
+          cd tmp
+          curl -LO https://github.com/elixir-lang/elixir/releases/download/v1.12.1/Precompiled.zip
+          unzip Precompiled.zip
+          dir
+      - run: Write-Output "$PWD/tmp/bin" | Out-File -FilePath $Env:GITHUB_PATH -Encoding utf8 -Append
+      # - run: choco install -y elixir zstandard make
+      - run: mix archive.install github hexpm/hex branch wm-mix --force
+      # - run: mix local.hex --force
+      - run: mix deps.get
+
+      - run: mix release
+        env:
+          MAKE: make
+          CC: gcc
+          CFLAGS: "-O2 -Wall -Wextra -Wno-unused-parameter -pedantic -static"
+
+      - run: |
+          git pull origin main
+          mv _build/dev/rel/bakeware/elixir_run.exe bin/elixir-run-windows-x86_64.exe
+        shell: bash
+        if: ${{ !env.ACT }}
+      - name: Update bin/
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update bin/elixir-run-windows-x86_64.exe
+          file_pattern: bin/
+        if: ${{ !env.ACT }}
