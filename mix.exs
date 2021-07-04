@@ -19,7 +19,7 @@ defmodule ElixirRun.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:iex, :mix, :logger, :ssl, :inets, :hex],
+      extra_applications: [:iex, :mix, :logger, :ssl, :inets, :hex, :eex, :parsetools],
       mod: {ElixirRun, []}
     ]
   end
