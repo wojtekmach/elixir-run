@@ -19,7 +19,7 @@ defmodule ElixirRun.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:iex, :mix, :logger, :ssl, :inets, :hex, :eex, :parsetools],
+      extra_applications: [:iex, :mix, :logger, :eex, :ex_unit, :ssl, :inets, :hex, :parsetools],
       mod: {ElixirRun, []}
     ]
   end
@@ -43,12 +43,14 @@ defmodule ElixirRun.MixProject do
   end
 
   defp copy_include(release) do
-    app = release.applications.parsetools
+    for app <- [:kernel, :parsetools, :public_key] do
+      spec = Map.fetch!(release.applications, app)
 
-    File.cp_r!(
-      Path.join([app[:path], "include"]),
-      Path.join([release.path, "lib", "parsetools-#{app[:vsn]}", "include"])
-    )
+      File.cp_r!(
+        Path.join([spec[:path], "include"]),
+        Path.join([release.path, "lib", "#{app}-#{spec[:vsn]}", "include"])
+      )
+    end
 
     release
   end
