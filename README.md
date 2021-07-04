@@ -2,6 +2,8 @@
 
 Erlang/OTP + Elixir + IEx + Mix in a single executable for Linux/macOS/Windows. Just run Elixir!
 
+This is very experimental. :)
+
 ## Usage
 
 ```
@@ -33,7 +35,7 @@ Links:
 ### Linux
 
 ```
-$ curl -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-linux-x86_64
+$ curl --fail -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-linux-x86_64
 $ chmod +x elixir-run
 $ ./elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
 x86_64-pc-linux-gnu
@@ -42,7 +44,7 @@ x86_64-pc-linux-gnu
 ### macOS
 
 ```
-$ curl -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-macos-x86_64
+$ curl --fail -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-macos-x86_64
 $ chmod +x elixir-run
 $ ./elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
 x86_64-apple-darwin20.5.0
@@ -51,7 +53,7 @@ x86_64-apple-darwin20.5.0
 ### Windows
 
 ```
-C:\Users\User> curl -L -o elixir-run.exe https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-windows-x86_64.exe
+C:\Users\User> curl --fail -L -o elixir-run.exe https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-windows-x86_64.exe
 C:\Users\User> elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
 win32
 ```
