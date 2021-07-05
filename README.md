@@ -7,19 +7,14 @@ This is very experimental. :)
 ## Usage
 
 ```
-$ elixir-run -e "IO.inspect NaiveDateTime.local_now"
-~N[2021-07-04 18:33:24]
-```
-
-```
-$ elixir-run --iex
+$ elixir-run iex
 iex> Mix.install [:decimal]
 iex> Decimal.add(1, 2)
 #Decimal<3>
 ```
 
 ```
-$ elixir-run --mix hex.info decimal
+$ elixir-run mix hex.info decimal
 Arbitrary precision decimal arithmetic.
 
 Config: {:decimal, "~> 2.0"}
@@ -46,7 +41,7 @@ x86_64-pc-linux-gnu
 ```
 $ curl --fail -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-macos-x86_64
 $ chmod +x elixir-run
-$ ./elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
+$ ./elixir-run run -e "IO.puts :erlang.system_info(:system_architecture)"
 x86_64-apple-darwin20.5.0
 ```
 
@@ -54,7 +49,7 @@ x86_64-apple-darwin20.5.0
 
 ```
 C:\Users\User> curl --fail -L -o elixir-run.exe https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-windows-x86_64.exe
-C:\Users\User> elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
+C:\Users\User> elixir-run run -e "IO.puts :erlang.system_info(:system_architecture)"
 win32
 ```
 
