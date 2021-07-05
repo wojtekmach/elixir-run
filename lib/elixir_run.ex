@@ -37,6 +37,16 @@ defmodule ElixirRun do
     :ok
   end
 
+  def main(["version"]) do
+    IO.puts("""
+    elixir-run 0.1.0 (#{:erlang.system_info(:system_architecture)})
+    Elixir #{System.version()}
+    Erlang/OTP #{System.otp_release()}
+    """)
+
+    :ok
+  end
+
   def main(_) do
     usage()
   end
@@ -50,6 +60,7 @@ defmodule ElixirRun do
         elixir-run iex
         elixir-run mix TASK
         elixir-run escript PATH
+        elixir-run version
     """)
 
     :ok

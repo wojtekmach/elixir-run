@@ -32,8 +32,10 @@ Links:
 ```
 $ curl --fail -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-linux-x86_64
 $ chmod +x elixir-run
-$ ./elixir-run -e "IO.puts :erlang.system_info(:system_architecture)"
-x86_64-pc-linux-gnu
+$ ./elixir-run version
+elixir-run 0.1.0 (x86_64-pc-linux-gnu)
+Elixir 1.12.1
+Erlang/OTP 24
 ```
 
 ### macOS
@@ -41,16 +43,20 @@ x86_64-pc-linux-gnu
 ```
 $ curl --fail -L -o elixir-run https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-macos-x86_64
 $ chmod +x elixir-run
-$ ./elixir-run run -e "IO.puts :erlang.system_info(:system_architecture)"
-x86_64-apple-darwin20.5.0
+$ ./elixir-run version
+elixir-run 0.1.0 (x86_64-apple-darwin20.5.0)
+Elixir 1.12.1
+Erlang/OTP 24
 ```
 
 ### Windows
 
 ```
 C:\Users\User> curl --fail -L -o elixir-run.exe https://github.com/wojtekmach/elixir-run/raw/main/bin/elixir-run-windows-x86_64.exe
-C:\Users\User> elixir-run run -e "IO.puts :erlang.system_info(:system_architecture)"
-win32
+C:\Users\User> elixir-run version
+elixir-run 0.1.0 (win32)
+Elixir 1.12.1
+Erlang/OTP 24
 ```
 
 ## Acknowledgments
